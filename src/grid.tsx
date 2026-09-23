@@ -1,22 +1,30 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import SwapyGrid from "./components/badcn/swapyGrid";
 
 export default function Grid() {
-  const { w, h }: { w: string; h: string } = {
-    w: localStorage.getItem("width") ?? "1000px",
-    h: localStorage.getItem("height") ?? "1000px",
-  };
+  const [size] = useState(() => {
+    let w = localStorage.getItem("width");
+
+    if (!w || w === "0") {
+      w = String(window.screen.width * 0.8);
+      localStorage.setItem("width", w);
+    }
+
+    return w;
+  });
 
   return (
-    <SwapyGrid
-      style={{ width: w, height: h }}
-      className="w-full"
-      initialSwapyData={[
-        { id: "1", col: 1, row: 1, node: <DemoDisplay>🍍</DemoDisplay> },
-        { id: "2", col: 2, row: 1, node: <DemoDisplay>🍓</DemoDisplay> },
-        { id: "3", col: 2, row: 1, node: <DemoDisplay>🍍</DemoDisplay> },
-      ]}
-    ></SwapyGrid>
+    <div style={{ maxWidth: `${size}px` }} className="w-full">
+      <SwapyGrid
+        className="w-full gap-2"
+        initialsCols={3}
+        initialSwapyData={[
+          { id: "1", col: 1, row: 1, node: <DemoDisplay>🍍</DemoDisplay> },
+          { id: "2", col: 2, row: 1, node: <DemoDisplay>🍓</DemoDisplay> },
+          { id: "3", col: 3, row: 1, node: <DemoDisplay>🍍</DemoDisplay> },
+        ]}
+      />
+    </div>
   );
 }
 
