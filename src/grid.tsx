@@ -1,5 +1,6 @@
-import { useState, type ReactNode } from "react";
-import SwapyGrid, { SwapyAddItem } from "./components/badcn/swapyGrid";
+import { useState } from "react";
+import SwapyGrid from "./components/badcn/swapyGrid";
+import { ClockDisplay } from "./components/clockDisplay";
 
 export default function Grid() {
   const [size] = useState(() => {
@@ -15,23 +16,17 @@ export default function Grid() {
 
   return (
     <div style={{ maxWidth: `${size}px` }} className="w-full">
-      <SwapyGrid className="w-full gap-2" initialsCols={3}>
-        <SwapyAddItem
-          id={globalThis.crypto.randomUUID()}
-          col={1}
-          row={1}
-          item={<Display>Hi</Display>}
-          className={"rounded-xl min-h-20 w-full h-full"}
-        />
+      <SwapyGrid
+        className="w-full gap-2"
+        initialsCols={3}
+        initialSwapyData={[
+          { id: "0ewfowef", col: 2, row: 1, node: <ClockDisplay /> },
+        ]}
+      >
+        <div className="w-full h-full border rounded-md min-h-20 bg-foreground grid place-items-center col-span-3">
+          Add Clock
+        </div>
       </SwapyGrid>
-    </div>
-  );
-}
-
-function Display({ children }: { children: ReactNode }) {
-  return (
-    <div className="border rounded-md w-full min-h-20 h-full grid place-items-center bg-amber-900">
-      {children}
     </div>
   );
 }
