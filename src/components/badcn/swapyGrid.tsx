@@ -35,6 +35,7 @@ type Props = ComponentProps<"div"> & {
   onSwapEnd?: (arg: SwapEndEvent) => void;
   onEditStart?: (arg: Array<SwapyNode>) => void;
   onEditEnd?: (arg: Array<SwapyNode>) => void;
+  onColsChange?: (arg: number) => void;
   onResize?: (arg: SwapyNode) => void;
   onDelete?: (arg: SwapyNode) => void;
 };
@@ -48,6 +49,7 @@ const SwapyContext = createContext<{
   setEdit: Dispatch<SetStateAction<boolean>>;
   onEditStart: (arg: Array<SwapyNode>) => void;
   onEditEnd: (arg: Array<SwapyNode>) => void;
+  onColsChange: (arg: number) => void;
   onResize: (arg: SwapyNode) => void;
   onDelete: (arg: SwapyNode) => void;
 } | null>(null);
@@ -61,6 +63,7 @@ export default function SwapyGrid({
   onSwapEnd = () => {},
   onEditStart = () => {},
   onEditEnd = () => {},
+  onColsChange = () => {},
   onResize = () => {},
   onDelete = () => {},
   className,
@@ -131,6 +134,7 @@ export default function SwapyGrid({
         onEditEnd,
         onResize,
         onDelete,
+        onColsChange,
       }}
     >
       <div className="grid gap-2">
@@ -241,7 +245,13 @@ function SwapyEdit(props: ButtonProps) {
 function SwapyAdd(props: ButtonProps) {
   const ctx = useContext(SwapyContext);
   return (
-    <Button {...props} onClick={() => ctx?.setCols(ctx.cols + 1)}>
+    <Button
+      {...props}
+      onClick={() => {
+        ctx?.setCols(ctx.cols + 1);
+        ctx?.onColsChange(ctx.cols);
+      }}
+    >
       +
     </Button>
   );
@@ -263,6 +273,8 @@ function SwapySub(props: ButtonProps) {
             item.col > ctx.cols - 1 ? { ...item, col: item.col - 1 } : item,
           ),
         );
+
+        ctx?.onColsChange(ctx.cols);
       }}
     >
       -
