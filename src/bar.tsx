@@ -1,11 +1,5 @@
 import { useForm } from "react-hook-form";
-import {
-  Sidebar,
-  SidebarHeader,
-  SidebarContent,
-  SidebarGroup,
-  SidebarFooter,
-} from "./components/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarGroup } from "./components/ui/sidebar";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormController from "./components/badcn/formController";
@@ -19,16 +13,12 @@ import { cn } from "cn";
 export default function AppBar() {
   return (
     <Sidebar>
-      <SidebarHeader>
-        <h1 className="tracking-tight">Formatting st.art.</h1>
-      </SidebarHeader>
       <SidebarContent>
         <SidebarGroup className="grid gap-2">
           <Background />
           <ClockFormatForm />
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter />
     </Sidebar>
   );
 }
@@ -39,6 +29,10 @@ function Background() {
   >("image");
   return (
     <div className="grid gap-2">
+      Background Image.
+      <p className="text-sm text-muted-foreground">
+        Refresh after adding image.
+      </p>
       <div className="flex border p-1 rounded-full">
         <Button
           variant={"secondary"}
