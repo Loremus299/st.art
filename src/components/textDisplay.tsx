@@ -9,17 +9,19 @@ export default function TextDisplay({
 }) {
   const p = localStorage.getItem(id);
   return (
-    <div className="w-full h-full text-lg text-pretty backdrop-blur-md text-background border dark:text-primary min-h-20  dark:border-primary rounded-md grid place-items-center">
+    <div>
       {edit ? (
         <Textarea
           onChange={(e) => {
             localStorage.setItem(id, e.currentTarget.value);
           }}
           placeholder={p!}
-          className="rounded-md"
+          className="rounded-md text-background dark:text-primary dark:border-primary "
         />
       ) : (
-        <p>{p}</p>
+        <div className="w-full h-full text-lg text-pretty backdrop-blur-md text-background border min-h-20  dark:text-primary dark:border-primary rounded-md grid place-items-center">
+          {p}
+        </div>
       )}
     </div>
   );
