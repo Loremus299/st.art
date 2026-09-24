@@ -14,6 +14,7 @@ export default function Grid({
 }: {
   closeSidebar: Dispatch<SetStateAction<boolean>>;
 }) {
+  const [id, setId] = useState(globalThis.crypto.randomUUID());
   const [size] = useState(() => {
     let w = localStorage.getItem("width");
 
@@ -39,12 +40,13 @@ export default function Grid({
             <Tooltip>
               <TooltipTrigger>
                 <SwapyAddItem
-                  id={globalThis.crypto.randomUUID()}
+                  id={id}
                   col={1}
                   row={1}
                   item={<ClockDisplay />}
                   variant={"ghost"}
                   size={"icon-xs"}
+                  onAdd={() => setId(globalThis.crypto.randomUUID())}
                 >
                   <HugeiconsIcon icon={ClockAddIcon} />
                 </SwapyAddItem>

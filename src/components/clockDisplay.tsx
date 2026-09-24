@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 
@@ -17,9 +16,9 @@ export function ClockDisplay() {
   useEffect(() => {
     const timer = setInterval(() => {
       setTime(new Date());
+      setFormat(localStorage.getItem("clock-format")!);
     }, 1000);
 
-    setFormat(localStorage.getItem("clock-format")!);
     return () => clearInterval(timer);
   }, []);
 
