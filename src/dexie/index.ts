@@ -3,7 +3,7 @@ import Dexie, { type Table } from "dexie";
 interface ItemTable {
   id?: number;
   reference: string;
-  type: "clock";
+  type: "clock" | "text";
   index: number;
   row: number;
   col: number;

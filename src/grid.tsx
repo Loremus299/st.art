@@ -5,13 +5,14 @@ import SwapyGrid, {
 } from "./components/badcn/swapyGrid";
 import { ClockDisplay } from "./components/clockDisplay";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { ClockAddIcon } from "@hugeicons/core-free-icons";
+import { ClockAddIcon, TextIcon } from "@hugeicons/core-free-icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "./components/ui/tooltip";
 import dexie from "./dexie";
+import TextDisplay from "./components/textDisplay";
 
 export default function Grid({
   closeSidebar,
@@ -54,8 +55,8 @@ export default function Grid({
           closeSidebar(true);
         }}
         onEditEnd={(items) => {
-          items.forEach((item, index) => {
-            dexie.updateItemById(item.id, index, {
+          items.forEach(async (item, index) => {
+            await dexie.updateItemById(item.id, index, {
               col: item.col,
               row: item.row,
             });
@@ -90,6 +91,31 @@ export default function Grid({
               </TooltipTrigger>
               <TooltipContent>Add clock.</TooltipContent>
             </Tooltip>
+            <Tooltip>
+              <TooltipTrigger>
+                <SwapyAddItem
+                  id={id}
+                  col={1}
+                  row={1}
+                  item={<TextDisplay edit={true} id={id} />}
+                  variant={"secondary"}
+                  size={"icon-xs"}
+                  onAdd={async () => {
+                    await dexie.addItem({
+                      type: "text",
+                      row: 1,
+                      col: 1,
+                      index: 10000,
+                      reference: id,
+                    });
+                    setId(globalThis.crypto.randomUUID());
+                  }}
+                >
+                  <HugeiconsIcon icon={TextIcon} />
+                </SwapyAddItem>
+              </TooltipTrigger>
+              <TooltipContent>Add text.</TooltipContent>
+            </Tooltip>
           </div>
         </div>
       </SwapyGrid>
@@ -107,6 +133,14 @@ async function tableToData() {
         row: item.row,
         id: item.reference,
         node: <ClockDisplay />,
+      });
+    }
+    if (item.type === "text") {
+      data.push({
+        col: item.col,
+        row: item.row,
+        id: item.reference,
+        node: <TextDisplay edit={false} id={item.reference} />,
       });
     }
   }
