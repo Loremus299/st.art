@@ -20,6 +20,15 @@ export default function Grid({
 }) {
   const [id, setId] = useState(globalThis.crypto.randomUUID());
   const [data, setData] = useState<SwapyNode[]>([]);
+  const [cols, setCols] = useState(() => {
+    let col = localStorage.getItem("col");
+
+    if (!col || col == "") {
+      localStorage.setItem("col", "3");
+      col = "3";
+    }
+    return col;
+  });
 
   useEffect(() => {
     const x = async () => {
@@ -44,7 +53,11 @@ export default function Grid({
     <div style={{ maxWidth: `${size}px` }} className="w-full">
       <SwapyGrid
         className="w-full gap-2"
-        initialsCols={3}
+        initialsCols={Number(cols)}
+        onColsChange={(c) => {
+          localStorage.setItem("col", String(c));
+          setCols(String(c));
+        }}
         initialEdit={false}
         initialSwapyData={data}
         onEditStart={async () => {
