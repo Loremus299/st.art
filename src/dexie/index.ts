@@ -32,5 +32,9 @@ async function updateItemById(
   return await items.where({ reference: id }).modify({ col, row, index });
 }
 
-const dexie = { addItem, readAllItems, updateItemById };
+async function removeItemById(id: string) {
+  return await items.where({ reference: id }).delete();
+}
+
+const dexie = { addItem, readAllItems, updateItemById, removeItemById };
 export default dexie;

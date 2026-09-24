@@ -54,6 +54,9 @@ export default function Grid({
         onEditStart={async () => {
           closeSidebar(true);
         }}
+        onDelete={(item) => {
+          dexie.removeItemById(item.id);
+        }}
         onEditEnd={(items) => {
           items.forEach(async (item, index) => {
             await dexie.updateItemById(item.id, index, {
