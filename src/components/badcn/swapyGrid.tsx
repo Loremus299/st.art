@@ -21,7 +21,6 @@ import { Button } from "../ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Delete03Icon,
-  LockIcon,
   LockKeyholeIcon,
   LockKeyholeOpenIcon,
 } from "@hugeicons/core-free-icons";

@@ -1,6 +1,13 @@
 import { useState, type Dispatch, type SetStateAction } from "react";
-import SwapyGrid from "./components/badcn/swapyGrid";
+import SwapyGrid, { SwapyAddItem } from "./components/badcn/swapyGrid";
 import { ClockDisplay } from "./components/clockDisplay";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ClockAddIcon } from "@hugeicons/core-free-icons";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "./components/ui/tooltip";
 
 export default function Grid({
   closeSidebar,
@@ -23,14 +30,28 @@ export default function Grid({
       <SwapyGrid
         className="w-full gap-2"
         initialsCols={3}
-        initialSwapyData={[
-          { id: "0ewfowef", col: 2, row: 1, node: <ClockDisplay /> },
-        ]}
+        initialSwapyData={[]}
         onEditStart={() => closeSidebar(true)}
         onEditEnd={() => closeSidebar(false)}
       >
-        <div className="w-full h-full border rounded-md min-h-20 bg-foreground grid place-items-center col-span-3">
-          Add Clock
+        <div className="fixed top-4 right-4">
+          <div className="grid gap-2">
+            <Tooltip>
+              <TooltipTrigger>
+                <SwapyAddItem
+                  id={globalThis.crypto.randomUUID()}
+                  col={1}
+                  row={1}
+                  item={<ClockDisplay />}
+                  variant={"ghost"}
+                  size={"icon-xs"}
+                >
+                  <HugeiconsIcon icon={ClockAddIcon} />
+                </SwapyAddItem>
+              </TooltipTrigger>
+              <TooltipContent>Add clock.</TooltipContent>
+            </Tooltip>
+          </div>
         </div>
       </SwapyGrid>
     </div>
