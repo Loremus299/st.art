@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AppBar from "./bar";
 import { SidebarProvider } from "./components/ui/sidebar";
 import { TooltipProvider } from "./components/ui/tooltip";
 import Grid from "./grid";
 
 export default function App() {
+  useEffect(() => {
+    const color = localStorage.getItem("color") ?? "#000000";
+    const themeElement = document.querySelector(".theme") as HTMLElement;
+    themeElement.style.setProperty("--primary", color);
+  }, []);
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [background] = useState(() => {
     let image = localStorage.getItem("image");
