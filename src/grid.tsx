@@ -40,6 +40,17 @@ export default function Grid({
     return w;
   });
 
+  const [cols, setCols] = useState(() => {
+    let c = localStorage.getItem("cols");
+
+    if (!c || c === "0") {
+      localStorage.setItem("cols", "5");
+      c = "5";
+    }
+
+    return c;
+  });
+
   if (!data) {
     return null;
   }
@@ -48,7 +59,11 @@ export default function Grid({
     <div style={{ maxWidth: `${size}px` }} className="w-full">
       <SwapyGrid
         className="w-full gap-2"
-        initialsCols={5}
+        initialsCols={Number(cols)}
+        onColsChange={(nc) => {
+          localStorage.setItem("cols", String(nc));
+          setCols(String(nc));
+        }}
         initialEdit={false}
         initialSwapyData={data}
         onEditStart={async () => {

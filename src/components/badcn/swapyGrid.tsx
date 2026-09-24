@@ -259,7 +259,7 @@ function SwapyAdd(props: ButtonProps) {
       {...props}
       onClick={() => {
         ctx?.setCols(ctx.cols + 1);
-        ctx?.onColsChange(ctx.cols);
+        ctx?.onColsChange(ctx.cols + 1);
       }}
     >
       +
@@ -284,7 +284,7 @@ function SwapySub(props: ButtonProps) {
           ),
         );
 
-        ctx?.onColsChange(ctx.cols);
+        ctx?.onColsChange(ctx.cols - 1);
       }}
     >
       -
