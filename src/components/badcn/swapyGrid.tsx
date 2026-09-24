@@ -316,7 +316,7 @@ function SwapyItem(item: SwapyNode & { index: number }) {
               id={item.id}
               variant={"ghost"}
               size={"icon-xs"}
-              className={"text-xs rounded-none"}
+              className={"text-xs bg-none"}
             />
           </div>
           <div className="bg-muted -mt-1 -ml-2 w-5.5 grid place-items-center rounded-b-full">
@@ -331,7 +331,7 @@ function SwapyItem(item: SwapyNode & { index: number }) {
               id={item.id}
               variant={"ghost"}
               size={"icon-xs"}
-              className={"text-xs rounded-none"}
+              className={"text-xs bg-none"}
             />
           </div>
         </div>
