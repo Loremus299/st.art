@@ -19,21 +19,11 @@ export default function Grid({
   closeSidebar: Dispatch<SetStateAction<boolean>>;
 }) {
   const [id, setId] = useState(globalThis.crypto.randomUUID());
-  const [data, setData] = useState<SwapyNode[]>([]);
-  const [cols, setCols] = useState(() => {
-    let col = localStorage.getItem("col");
-
-    if (!col || col == "") {
-      localStorage.setItem("col", "3");
-      col = "3";
-    }
-    return col;
-  });
+  const [data, setData] = useState<SwapyNode[] | null>(null);
 
   useEffect(() => {
     const x = async () => {
       const items = await tableToData();
-      console.log(items);
       setData(items);
     };
     x();
@@ -49,15 +39,15 @@ export default function Grid({
     return w;
   });
 
+  if (!data) {
+    return null;
+  }
+
   return (
     <div style={{ maxWidth: `${size}px` }} className="w-full">
       <SwapyGrid
         className="w-full gap-2"
-        initialsCols={Number(cols)}
-        onColsChange={(c) => {
-          localStorage.setItem("col", String(c));
-          setCols(String(c));
-        }}
+        initialsCols={5}
         initialEdit={false}
         initialSwapyData={data}
         onEditStart={async () => {
