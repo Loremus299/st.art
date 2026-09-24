@@ -5,7 +5,7 @@ import { TooltipProvider } from "./components/ui/tooltip";
 import Grid from "./grid";
 
 export default function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [background] = useState(() => {
     let image = localStorage.getItem("image");
     let type = localStorage.getItem("image-type");

@@ -1,5 +1,8 @@
-import { useState, type Dispatch, type SetStateAction } from "react";
-import SwapyGrid, { SwapyAddItem } from "./components/badcn/swapyGrid";
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
+import SwapyGrid, {
+  SwapyAddItem,
+  type SwapyNode,
+} from "./components/badcn/swapyGrid";
 import { ClockDisplay } from "./components/clockDisplay";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ClockAddIcon } from "@hugeicons/core-free-icons";
@@ -8,6 +11,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "./components/ui/tooltip";
+import dexie from "./dexie";
 
 export default function Grid({
   closeSidebar,
@@ -15,6 +19,16 @@ export default function Grid({
   closeSidebar: Dispatch<SetStateAction<boolean>>;
 }) {
   const [id, setId] = useState(globalThis.crypto.randomUUID());
+  const [data, setData] = useState<SwapyNode[]>([]);
+
+  useEffect(() => {
+    const x = async () => {
+      const items = await tableToData();
+      console.log(items);
+      setData(items);
+    };
+    x();
+  }, []);
   const [size] = useState(() => {
     let w = localStorage.getItem("width");
 
@@ -31,9 +45,20 @@ export default function Grid({
       <SwapyGrid
         className="w-full gap-2"
         initialsCols={3}
-        initialSwapyData={[]}
-        onEditStart={() => closeSidebar(true)}
-        onEditEnd={() => closeSidebar(false)}
+        initialEdit={false}
+        initialSwapyData={data}
+        onEditStart={async () => {
+          closeSidebar(true);
+        }}
+        onEditEnd={(items) => {
+          items.forEach((item, index) => {
+            dexie.updateItemById(item.id, index, {
+              col: item.col,
+              row: item.row,
+            });
+          });
+          closeSidebar(false);
+        }}
       >
         <div className="fixed top-4 right-4">
           <div className="grid gap-2">
@@ -46,7 +71,16 @@ export default function Grid({
                   item={<ClockDisplay />}
                   variant={"secondary"}
                   size={"icon-xs"}
-                  onAdd={() => setId(globalThis.crypto.randomUUID())}
+                  onAdd={async () => {
+                    await dexie.addItem({
+                      type: "clock",
+                      row: 1,
+                      col: 1,
+                      index: 10000,
+                      reference: id,
+                    });
+                    setId(globalThis.crypto.randomUUID());
+                  }}
                 >
                   <HugeiconsIcon icon={ClockAddIcon} />
                 </SwapyAddItem>
@@ -58,4 +92,21 @@ export default function Grid({
       </SwapyGrid>
     </div>
   );
+}
+
+async function tableToData() {
+  const table = await dexie.readAllItems();
+  const data: SwapyNode[] = [];
+  for (const item of table) {
+    if (item.type === "clock") {
+      data.push({
+        col: item.col,
+        row: item.row,
+        id: item.reference,
+        node: <ClockDisplay />,
+      });
+    }
+  }
+
+  return data;
 }
