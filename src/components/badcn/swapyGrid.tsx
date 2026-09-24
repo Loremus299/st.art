@@ -307,7 +307,7 @@ function SwapyItem(item: SwapyNode & { index: number }) {
       }}
     >
       {ctx?.edit && showEdit && (
-        <div className="absolute">
+        <div className="absolute z-10">
           <div className="bg-muted -mt-2 -ml-2 flex items-center rounded-r-full rounded-tl-md">
             <SwapyItemDel
               id={item.id}

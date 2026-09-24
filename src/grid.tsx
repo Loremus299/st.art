@@ -44,7 +44,7 @@ export default function Grid({
                   col={1}
                   row={1}
                   item={<ClockDisplay />}
-                  variant={"ghost"}
+                  variant={"secondary"}
                   size={"icon-xs"}
                   onAdd={() => setId(globalThis.crypto.randomUUID())}
                 >

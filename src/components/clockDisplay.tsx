@@ -23,7 +23,7 @@ export function ClockDisplay() {
   }, []);
 
   return (
-    <div className="border rounded-md w-full min-h-20 h-full grid place-items-center bg-primary font-mono text-background text-3xl tracking-tighter">
+    <div className="border backdrop-blur-md rounded-md w-full min-h-20 h-full grid place-items-center bg font-mono text-background text-3xl tracking-tighter">
       {dayjs(time).format(format)}
     </div>
   );
