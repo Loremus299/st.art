@@ -1,17 +1,19 @@
+import { useState } from "react";
 import AppBar from "./bar";
 import { SidebarProvider, SidebarTrigger } from "./components/ui/sidebar";
 import { TooltipProvider } from "./components/ui/tooltip";
 import Grid from "./grid";
 
 export default function App() {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   return (
     <TooltipProvider>
-      <SidebarProvider>
+      <SidebarProvider open={sidebarOpen}>
         <AppBar />
         <main className="w-full">
-          <SidebarTrigger className={"fixed bottom-4 right-8"} />
+          <SidebarTrigger className={"hidden"} />
           <div className="w-full min-h-screen grid place-items-center">
-            <Grid />
+            <Grid closeSidebar={setSidebarOpen} />
           </div>
         </main>
       </SidebarProvider>

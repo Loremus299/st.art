@@ -18,6 +18,13 @@ import {
   type SwapStartEvent,
 } from "swapy";
 import { Button } from "../ui/button";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  Delete03Icon,
+  LockIcon,
+  LockKeyholeIcon,
+  LockKeyholeOpenIcon,
+} from "@hugeicons/core-free-icons";
 
 export interface SwapyNode {
   id: string;
@@ -142,7 +149,7 @@ export default function SwapyGrid({
           <SwapyEdit
             variant={"secondary"}
             size={"icon-xs"}
-            className={"text-xs"}
+            className={"text-xs fixed bottom-4 right-4"}
           />
           {edit && (
             <div className="flex gap-1 items-center bg-background rounded-md">
@@ -237,7 +244,11 @@ function SwapyEdit(props: ButtonProps) {
         ctx?.setEdit(!ctx.edit);
       }}
     >
-      {ctx?.edit ? "🔒" : "🔓"}
+      {ctx?.edit ? (
+        <HugeiconsIcon icon={LockKeyholeOpenIcon} />
+      ) : (
+        <HugeiconsIcon icon={LockKeyholeIcon} />
+      )}
     </Button>
   );
 }
@@ -461,7 +472,7 @@ function SwapyItemDel(props: ButtonProps & { id: string }) {
         ctx?.onDelete(ctx.swapyData.find((item) => item.id === cur.id)!);
       }}
     >
-      🗑️
+      <HugeiconsIcon icon={Delete03Icon} />
     </Button>
   );
 }
