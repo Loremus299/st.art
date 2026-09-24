@@ -16,10 +16,10 @@ export default function TextDisplay({
             localStorage.setItem(id, e.currentTarget.value);
           }}
           placeholder={p!}
-          className="rounded-md w-full h-full backdrop-blur-md bg-transparent min-h-20 text-background dark:text-primary dark:border-primary"
+          className="rounded-md w-full h-full backdrop-blur-md bg-transparent min-h-20 text-primary border-primary"
         />
       ) : (
-        <div className="w-full h-full text-lg text-pretty backdrop-blur-md text-background border min-h-20  dark:text-primary dark:border-primary rounded-md grid place-items-center">
+        <div className="p-2 pt-0 pb-0 w-full h-full text-lg text-pretty backdrop-blur-md border min-h-20  text-primary border-primary rounded-md grid place-items-center">
           {p}
         </div>
       )}

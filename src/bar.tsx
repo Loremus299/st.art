@@ -9,6 +9,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { ClockCheckIcon, ImageAdd02Icon } from "@hugeicons/core-free-icons";
 import { useState } from "react";
 import { cn } from "cn";
+import ColorPicker from "./components/badcn/colorPicker";
 
 export default function AppBar() {
   return (
@@ -17,6 +18,19 @@ export default function AppBar() {
         <SidebarGroup className="grid gap-2">
           <Background />
           <ClockFormatForm />
+          <div className="w-full">
+            <ColorPicker
+              editablePresets={false}
+              preset={[]}
+              onPick={(e) => {
+                localStorage.setItem("color", e);
+                const themeElement = document.querySelector(
+                  ".theme",
+                ) as HTMLElement;
+                themeElement.style.setProperty("--primary", e);
+              }}
+            />
+          </div>
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>

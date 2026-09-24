@@ -1,0 +1,28 @@
+.color-picker .react-colorful__hue,
+.color-picker .react-colorful__alpha {
+  border-radius: 200;
+  margin-top: 12px;
+  height: 1em;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.color-picker .react-colorful__saturation {
+  border: none !important;
+  border-radius: 8px !important;
+}
+
+.color-picker .react-colorful__hue {
+  order: 1;
+}
+
+.color-picker .react-colorful__alpha {
+  order: 2;
+}
+
+.color-picker .react-colorful__alpha-pointer,
+.color-picker .react-colorful__hue-pointer,
+.color-picker .react-colorful__pointer {
+  width: 16px;
+  height: 16px;
+}

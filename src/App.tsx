@@ -25,7 +25,7 @@ export default function App() {
         <AppBar />
         <main className="w-full">
           <div
-            className="w-full min-h-screen grid place-items-center"
+            className="w-full min-h-screen grid place-items-center theme"
             style={{
               backgroundImage:
                 background.type === "url"
