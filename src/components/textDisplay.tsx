@@ -12,6 +12,7 @@ export default function TextDisplay({
     <div>
       {edit ? (
         <Textarea
+          placeholder={"Type your text here...."}
           onChange={(e) => {
             localStorage.setItem(id, e.currentTarget.value);
           }}
