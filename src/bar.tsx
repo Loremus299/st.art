@@ -15,10 +15,11 @@ export default function AppBar() {
   return (
     <Sidebar>
       <SidebarContent>
-        <SidebarGroup className="grid gap-2">
+        <SidebarGroup className="grid gap-4">
           <Background />
           <ClockFormatForm />
-          <div className="w-full">
+          <div className="w-full flex flex-col gap-2">
+            <p className="tracking-tight">Text Color.</p>
             <ColorPicker
               editablePresets={false}
               preset={[]}

@@ -15,13 +15,12 @@ export default function TextDisplay({
           onChange={(e) => {
             localStorage.setItem(id, e.currentTarget.value);
           }}
-          placeholder={p!}
-          className="rounded-md w-full h-full backdrop-blur-md bg-transparent min-h-20 text-primary border-primary"
+          className="rounded-md w-full h-full backdrop-blur-md bg-transparent min-h-20 text-primary border-primary drop-shadow-xs drop-shadow-black"
         />
       ) : (
-        <div className="p-2 pt-0 pb-0 w-full h-full text-lg text-pretty backdrop-blur-md border min-h-20  text-primary border-primary rounded-md grid place-items-center">
+        <pre className="p-2 pt-0 pb-0 w-full h-full font-sans text-pretty backdrop-blur-md border min-h-20  text-primary border-primary rounded-md grid items-center drop-shadow-xs drop-shadow-black">
           {p}
-        </div>
+        </pre>
       )}
     </div>
   );
