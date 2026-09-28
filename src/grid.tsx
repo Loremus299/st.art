@@ -8,6 +8,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Bookmark01Icon,
   ClockAddIcon,
+  Github01Icon,
   ImageAdd01Icon,
   TextIcon,
 } from "@hugeicons/core-free-icons";
@@ -20,6 +21,7 @@ import dexie from "./dexie";
 import TextDisplay from "./components/textDisplay";
 import ImageDisplay from "./components/imageDisplay";
 import BookmarkDisplay from "./components/bookmarkDisplay";
+import { buttonVariants } from "./components/ui/button";
 
 export default function Grid({
   closeSidebar,
@@ -204,6 +206,21 @@ export default function Grid({
                 </SwapyAddItem>
               </TooltipTrigger>
               <TooltipContent>Add bookmarks.</TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger>
+                <a
+                  target="_blank"
+                  href="https://github.com/Loremus299/st.art/issues/new"
+                  className={buttonVariants({
+                    size: "icon-xs",
+                    variant: "secondary",
+                  })}
+                >
+                  <HugeiconsIcon icon={Github01Icon} className="size-3" />
+                </a>
+              </TooltipTrigger>
+              <TooltipContent>Suggest more nodes.</TooltipContent>
             </Tooltip>
           </div>
         </div>
