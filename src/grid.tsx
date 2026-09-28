@@ -6,6 +6,7 @@ import SwapyGrid, {
 import { ClockDisplay } from "./components/clockDisplay";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
+  Bookmark01Icon,
   ClockAddIcon,
   ImageAdd01Icon,
   TextIcon,
@@ -18,6 +19,7 @@ import {
 import dexie from "./dexie";
 import TextDisplay from "./components/textDisplay";
 import ImageDisplay from "./components/imageDisplay";
+import BookmarkDisplay from "./components/bookmarkDisplay";
 
 export default function Grid({
   closeSidebar,
@@ -178,6 +180,31 @@ export default function Grid({
               </TooltipTrigger>
               <TooltipContent>Add image.</TooltipContent>
             </Tooltip>
+            <Tooltip>
+              <TooltipTrigger>
+                <SwapyAddItem
+                  id={id}
+                  col={1}
+                  row={1}
+                  item={<BookmarkDisplay id={id} />}
+                  variant={"secondary"}
+                  size={"icon-xs"}
+                  onAdd={async () => {
+                    await dexie.addItem({
+                      type: "bookmark",
+                      row: 1,
+                      col: 1,
+                      index: 10000,
+                      reference: id,
+                    });
+                    setId(globalThis.crypto.randomUUID());
+                  }}
+                >
+                  <HugeiconsIcon icon={Bookmark01Icon} />
+                </SwapyAddItem>
+              </TooltipTrigger>
+              <TooltipContent>Add bookmarks.</TooltipContent>
+            </Tooltip>
           </div>
         </div>
       </SwapyGrid>
@@ -222,7 +249,14 @@ async function tableToData() {
         ),
       });
     }
+    if (item.type === "bookmark") {
+      data.push({
+        col: item.col,
+        row: item.row,
+        id: item.reference,
+        node: <BookmarkDisplay id={item.reference} />,
+      });
+    }
   }
-
   return data;
 }
