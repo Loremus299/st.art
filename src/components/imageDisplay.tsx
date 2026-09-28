@@ -52,7 +52,9 @@ export default function ImageDisplay({
     <div className="rounded-md border w-full h-full backdrop-blur-md bg-transparent min-h-20 text-primary border-primary drop-shadow-xs drop-shadow-black grid place-items-center">
       {edit ? (
         <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger className={buttonVariants()}>Add image</DialogTrigger>
+          <DialogTrigger className={buttonVariants({ variant: "ghost" })}>
+            Add image
+          </DialogTrigger>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Add image.</DialogTitle>
