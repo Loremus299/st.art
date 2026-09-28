@@ -5,7 +5,11 @@ import SwapyGrid, {
 } from "./components/badcn/swapyGrid";
 import { ClockDisplay } from "./components/clockDisplay";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { ClockAddIcon, TextIcon } from "@hugeicons/core-free-icons";
+import {
+  ClockAddIcon,
+  ImageAdd01Icon,
+  TextIcon,
+} from "@hugeicons/core-free-icons";
 import {
   Tooltip,
   TooltipContent,
@@ -13,6 +17,7 @@ import {
 } from "./components/ui/tooltip";
 import dexie from "./dexie";
 import TextDisplay from "./components/textDisplay";
+import ImageDisplay from "./components/imageDisplay";
 
 export default function Grid({
   closeSidebar,
@@ -146,6 +151,33 @@ export default function Grid({
               </TooltipTrigger>
               <TooltipContent>Add text.</TooltipContent>
             </Tooltip>
+            <Tooltip>
+              <TooltipTrigger>
+                <SwapyAddItem
+                  id={id}
+                  col={1}
+                  row={1}
+                  item={
+                    <ImageDisplay width={1} height={1} edit={true} id={id} />
+                  }
+                  variant={"secondary"}
+                  size={"icon-xs"}
+                  onAdd={async () => {
+                    await dexie.addItem({
+                      type: "image",
+                      row: 1,
+                      col: 1,
+                      index: 10000,
+                      reference: id,
+                    });
+                    setId(globalThis.crypto.randomUUID());
+                  }}
+                >
+                  <HugeiconsIcon icon={ImageAdd01Icon} />
+                </SwapyAddItem>
+              </TooltipTrigger>
+              <TooltipContent>Add image.</TooltipContent>
+            </Tooltip>
           </div>
         </div>
       </SwapyGrid>
@@ -165,12 +197,29 @@ async function tableToData() {
         node: <ClockDisplay />,
       });
     }
+
     if (item.type === "text") {
       data.push({
         col: item.col,
         row: item.row,
         id: item.reference,
         node: <TextDisplay edit={false} id={item.reference} />,
+      });
+    }
+
+    if (item.type === "image") {
+      data.push({
+        col: item.col,
+        row: item.row,
+        id: item.reference,
+        node: (
+          <ImageDisplay
+            width={item.col}
+            height={item.row}
+            edit={false}
+            id={item.reference}
+          />
+        ),
       });
     }
   }
