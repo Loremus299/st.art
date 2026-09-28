@@ -42,7 +42,7 @@ export default function App() {
               backgroundPosition: "center",
             }}
           >
-            <Grid closeSidebar={setSidebarOpen} />
+            <Grid closeSidebar={setSidebarOpen} sidebarVis={sidebarOpen} />
           </div>
         </main>
       </SidebarProvider>

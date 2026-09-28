@@ -16,8 +16,10 @@ import TextDisplay from "./components/textDisplay";
 
 export default function Grid({
   closeSidebar,
+  sidebarVis,
 }: {
   closeSidebar: Dispatch<SetStateAction<boolean>>;
+  sidebarVis: boolean;
 }) {
   const [id, setId] = useState(globalThis.crypto.randomUUID());
   const [data, setData] = useState<SwapyNode[] | null>(null);
@@ -57,6 +59,16 @@ export default function Grid({
 
   return (
     <div style={{ maxWidth: `${size}px` }} className="w-full">
+      {data.length === 0 && !sidebarVis && (
+        <div className="fixed bottom-6 right-4">
+          <img src="/start.png" alt="Start" className="w-60" />
+        </div>
+      )}
+      {data.length === 0 && sidebarVis && (
+        <div className="fixed top-7 right-12">
+          <img src="/nodes.png" alt="Nodes" className="w-60" />
+        </div>
+      )}
       <SwapyGrid
         className="w-full gap-2"
         initialsCols={Number(cols)}
