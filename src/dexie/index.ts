@@ -3,7 +3,7 @@ import Dexie, { type Table } from "dexie";
 interface ItemTable {
   id?: number;
   reference: string;
-  type: "clock" | "text" | "image";
+  type: "clock" | "text" | "image" | "bookmark";
   index: number;
   row: number;
   col: number;
@@ -55,6 +55,9 @@ async function removeItemById(id: string) {
 
   if (item?.type == "image") {
     await images.where({ reference: id }).delete();
+  }
+  if (item?.type == "bookmark") {
+    await bookmark.where({ reference: id }).delete();
   }
 }
 
