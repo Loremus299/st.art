@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
 import {
-  ComponentProps,
+  type ComponentProps,
   createContext,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
+  type Dispatch,
+  type ReactNode,
+  type SetStateAction,
   useContext,
   useEffect,
   useRef,

@@ -169,7 +169,7 @@ export default function ColorPicker({
                   const rgb = ctx.getImageData(x, y, 1, 1).data;
                   const hexArr = Array.from(rgb);
 
-                  if (!!!alpha) {
+                  if (!alpha) {
                     hexArr.pop();
                   }
 
@@ -198,7 +198,7 @@ export default function ColorPicker({
                 <ContextMenuContent>
                   <ContextMenuItem
                     onClick={() => {
-                      setPresets(presets.filter((t, i) => i !== index));
+                      setPresets(presets.filter((_, i) => i !== index));
                       onPresetChange(preset);
                     }}
                   >
