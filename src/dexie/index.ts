@@ -78,6 +78,10 @@ async function bookmarksByRef(ref: string) {
   return await bookmark.where({ reference: ref }).toArray();
 }
 
+async function removeBookmark(id: number) {
+  return await bookmark.where({ id }).toArray();
+}
+
 const dexie = {
   addItem,
   readAllItems,
@@ -87,5 +91,6 @@ const dexie = {
   imageByRef,
   addBookmark,
   bookmarksByRef,
+  removeBookmark,
 };
 export default dexie;
