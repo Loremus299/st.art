@@ -22,6 +22,7 @@ export default function AppBar() {
             <p className="tracking-tight">Text Color.</p>
             <ColorPicker
               editablePresets={false}
+              alpha={false}
               preset={[]}
               onPick={(e) => {
                 localStorage.setItem("color", e);

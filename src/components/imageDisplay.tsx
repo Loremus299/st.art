@@ -35,18 +35,20 @@ export default function ImageDisplay({
   });
 
   useEffect(() => {
+    let newrl = "";
     const f = async () => {
       const image = await dexie.imageByRef(id);
       if (image) {
-        setUrl(URL.createObjectURL(image));
+        newrl = URL.createObjectURL(image);
+        setUrl(newrl);
       }
     };
     f();
 
     return () => {
-      URL.revokeObjectURL(url);
+      URL.revokeObjectURL(newrl);
     };
-  }, [id, url]);
+  }, [id]);
 
   return (
     <div className="rounded-md border w-full h-full backdrop-blur-md bg-transparent min-h-20 text-primary border-primary drop-shadow-xs drop-shadow-black grid place-items-center">
