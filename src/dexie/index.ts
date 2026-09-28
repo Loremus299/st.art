@@ -15,14 +15,23 @@ interface ImageTable {
   image: File;
 }
 
+interface BookmarkTable {
+  id?: number;
+  reference: string;
+  link: string;
+  text: string;
+}
+
 const db = new Dexie("start");
 db.version(1).stores({
   items: "++id, reference, type, index, row, col",
   images: "++id, reference",
+  bookmark: "++id, reference, link, text",
 });
 
 const items: Table<ItemTable> = db.table("items");
 const images: Table<ImageTable> = db.table("images");
+const bookmark: Table<BookmarkTable> = db.table("bookmark");
 
 async function addItem(item: ItemTable) {
   return await items.add(item);
@@ -58,6 +67,14 @@ async function imageByRef(ref: string) {
   return record ? record.image : null;
 }
 
+async function addBookmark(item: BookmarkTable) {
+  return await bookmark.add(item);
+}
+
+async function bookmarksByRef(ref: string) {
+  return await bookmark.where({ reference: ref }).toArray();
+}
+
 const dexie = {
   addItem,
   readAllItems,
@@ -65,5 +82,7 @@ const dexie = {
   removeItemById,
   addImage,
   imageByRef,
+  addBookmark,
+  bookmarksByRef,
 };
 export default dexie;
