@@ -28,10 +28,9 @@ export default function ImageDisplay({
   const [url, setUrl] = useState("");
   const [open, setOpen] = useState(false);
   const [size] = useState(() => {
-    return {
-      width: width * 70,
-      height: height * 70,
-    };
+    return width / height > 1
+      ? { type: "height", css: String(height * 70 + "px") }
+      : { type: "width", css: String(width * 70 + "px") };
   });
 
   useEffect(() => {
@@ -69,7 +68,7 @@ export default function ImageDisplay({
           <img
             src={url}
             className={"rounded-md"}
-            style={{ width: size.width + "px", height: size.height + "px" }}
+            style={{ [size.type]: size.css }}
           />
         </div>
       )}
