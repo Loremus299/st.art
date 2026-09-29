@@ -65,7 +65,7 @@ export default function ImageDisplay({
           </DialogContent>
         </Dialog>
       ) : (
-        <div className="rounded-md w-full h-full backdrop-blur-md bg-transparent min-h-20 text-primary border-primary drop-shadow-xs drop-shadow-black grid place-items-center">
+        <div className="rounded-md w-full h-full backdrop-blur-md bg-transparent min-h-20 text-primary border-primary drop-shadow-xs drop-shadow-black grid place-items-center p-4">
           <img
             src={url}
             className={"rounded-md"}
